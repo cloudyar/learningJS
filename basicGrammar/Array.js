@@ -129,5 +129,117 @@ console.log(result);
 判断：includes()
 连接：join()/concat()
 切割：slice()
-寻找：indexOf()/lastIndexOf()
+寻找：indexOf()/lastIndexOf()  前者：从左到右搜，后者：从右到左搜
 */
+console.log(fruits.includes('Apple')); //true
+console.log(fruits.includes('apple')); //false
+console.log(fruits.join('-'));
+//Apple-Banana-lemon-mango-melon-orange-pear-strawberry-strawberry
+console.log(fruits.concat(['test1','test2']));
+console.log(fruits.slice(0,2)); //fruits[0],fruits[1]
+console.log(fruits.slice());  //数组的浅拷贝
+console.log(fruits.slice(3,1)); //slice是从start到end的，start>end会返回空数组
+//找出数组中出现'strawberry'的第一个索引
+console.log(fruits.indexOf('strawberry')); //7
+//找出所有索引呢
+var starwberryArr = [];
+var idx = fruits.indexOf('strawberry');
+while(idx != -1) {
+	starwberryArr.push(idx);
+	idx = fruits.indexOf('strawberry',idx + 1);
+	console.log(idx);
+}
+console.log(starwberryArr);
+
+/*
+上面这些访问方法不会改变数组内容，不过有意设计为通用方法
+所以对于类数组也是可以用的
+比如string可用slice()方法
+*/
+console.log([].slice.call('hello',1,3)); //['e', 'l']
+(function (a,b,c) {
+	console.log([].join.call(arguments,'-'));
+})('a',1,true); //a-1-true
+
+//3. 迭代方法
+/*
+很多方法都有一个回调函数callback(element,index,array)
+执行完回调函数之前，length属性会被缓存
+a. 增加元素不会被迭代到
+b. 删除元素可能会影响结果
+几个比较重要的：
+Array.forEach()
+Array.map()
+Array.reduce()
+Array.filter()
+*/
+fruits.forEach(function(e,i,arr) {
+	console.log(`element:${e},index:${i}`);
+});
+
+//例子：对象的复制
+function copy(obj) {
+  var copy = Object.create(Object.getPrototypeOf(obj));
+  var propNames = Object.getOwnPropertyNames(obj); //得到obj的属性数组
+
+  propNames.forEach(function(name) {
+    var desc = Object.getOwnPropertyDescriptor(obj, name);
+    Object.defineProperty(copy, name, desc);
+  });
+
+  return copy;
+}
+
+var obj1 = { a: 1, b: 2 };
+var obj2 = copy(obj1); // obj2 looks like obj1 now
+console.log(obj2);
+//更改obj1对象引用的值，再看下obj2是否会变化
+obj1.a = 2;
+console.log(obj1); //{ a: 2, b: 2 }
+console.log(obj2); //{ a: 1, b: 2 }
+
+//map() 数组每个元素都调用提供的函数后返回结果
+//把fruits每个元素都变成'fruits:element'形式
+console.log(fruits.map(function(element,index,arr) {
+	return element = 'fruits:' + element;
+}));
+
+let num = [1,2,3,4];
+console.log(num.map((x)=>x ** 2));
+//例子：字符串每个字符的ASCII码
+console.log([].map.call('hello,world',s=>s.charCodeAt(0)));
+//例子：字符串反转
+console.log(Array.from('12345').reverse().join(''));
+//用map实现
+console.log([].map.call('12345',s=>s).reverse().join(''));
+//一个错误的例子
+console.log(['1','2','3'].map(parseInt));
+//[ 1, NaN, NaN ]
+//map回调函数默认参数是三个element,index,array，parseInt参数可以2个的，第二个是进制数
+//第一次：parseInt('1',0,['1','2','3']);
+//第二次：parseInt('2',1,['1','2','3']);
+//第三次：parseInt('3',2,['1','2','3']);
+//正确实现：
+console.log(['1','2','3'].map(x => parseInt(x))); 
+//[ 1, 2, 3 ]
+
+//reduce()方法：对每个元素应用一个函数并两两累积，最后返回单个值。
+//提供初始值通常更安全
+const array1 = [1, 2, 3, 4];
+//所有数字相加
+console.log(array1.reduce(function(acc,cur) {
+	return acc + cur;
+},0));  //10
+//例子：降维输出
+console.log([[0, 1], [2, 3], [4, 5]].reduce((prev,curr) => prev.concat(curr),[]));
+//例子：计算数组中每个元素出现的次数
+//思路：每个能迭代到数组元素的都可以实现到
+var fruit = {};
+fruits.forEach(function(ifruit) {
+	if(!fruit[ifruit]) {
+		fruit[ifruit] = 1;
+	} else {
+		fruit[ifruit] += 1;
+	}
+});
+console.log(fruit);
