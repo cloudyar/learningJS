@@ -243,3 +243,59 @@ fruits.forEach(function(ifruit) {
 	}
 });
 console.log(fruit);
+//用reduce实现
+var countedNames = fruits.reduce(function(allnames,names) {
+	if(names in allnames) {
+		allnames[names] ++;
+	} else {
+		allnames[names] = 1;
+	}
+	return allnames;
+},{});
+console.log(countedNames);
+//例子：数组乱序
+console.log(array1);
+var newArr = array1.reduce(function(prev, curr, index) {
+	prev.splice(parseInt(Math.random() * (index + 1)), 0, curr);
+	return prev;
+},[]);
+console.log(newArr);
+
+//理论上如果可以迭代到每个元素，是可以实现以上的功能的
+var newArr2 = [];
+array1.map(function(element, index) {
+	newArr2.splice(parseInt(Math.random() * (index + 1)), 0, element);
+});
+console.log(newArr2);
+
+// friends - an array of objects 
+// where object field "books" - list of favorite books 
+var friends = [{
+  name: 'Anna',
+  books: ['Bible', 'Harry Potter'],
+  age: 21
+}, {
+  name: 'Bob',
+  books: ['War and peace', 'Romeo and Juliet'],
+  age: 26
+}, {
+  name: 'Alice',
+  books: ['The Lord of the Rings', 'The Shining'],
+  age: 18
+}];
+
+var allBooks = friends.reduce(function(prev, curr) {
+	return prev.concat(curr.books);
+	//return [...prev, ...curr.books];
+}, []);
+console.log(allBooks);
+
+//例子：数组去重
+let arr = [1,2,1,2,3,5,4,5,3,4,4,4,4];
+let NoRepArr = arr.reduce(function(prev, curr) {
+	if(!(prev.includes(curr))) {
+		prev.push(curr);
+	}
+	return prev;
+},[]);
+console.log(NoRepArr);
