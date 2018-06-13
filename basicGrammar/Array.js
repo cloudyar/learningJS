@@ -336,3 +336,37 @@ var NumArr2 = arr2.filter(function(obj) {
 		obj.id !== 0) return true;
 });
 console.log(NumArr2);
+//例子：找出数组中的质数
+// 可以先考虑整除排除的情况，最后再判断element === 1的情况
+function isPrime(element) {
+	//从2开始
+	var start = 2;
+	//从2到Math.sqrt(element)之间数字做判断即可
+	while(start <= Math.sqrt(element)) {
+		//可以整除的都不是质数
+		if(element % start ++ === 0) return false;
+		//其他情况剩下element === 1的情况
+		return element !== 1;
+	}
+}
+console.log([4, 5, 8, 12, 13, 14, 15, 17].filter(isPrime));
+
+//var testArr = [12, 5, 8, 130, 44];
+console.log(testArr.every((a) => a > 5)); //false
+console.log(testArr.some((a) => a > 5)); //true
+
+var board = [ 
+  ['R','N','B','Q','K','B','N','R'],
+  ['P','P','P','P','P','P','P','P'],
+  [' ',' ',' ',' ',' ',' ',' ',' '],
+  [' ',' ',' ',' ',' ',' ',' ',' '],
+  [' ',' ',' ',' ',' ',' ',' ',' '],
+  [' ',' ',' ',' ',' ',' ',' ',' '],
+  ['p','p','p','p','p','p','p','p'],
+  ['r','n','b','q','k','b','n','r'] ];
+
+ console.log(board.join('\n') + '\n\n');
+
+ board[4][4] = board[6][4];
+ board[6][4] = ' ';
+ console.log(board.join('\n'));
