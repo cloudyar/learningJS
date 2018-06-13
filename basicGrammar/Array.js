@@ -299,3 +299,40 @@ let NoRepArr = arr.reduce(function(prev, curr) {
 	return prev;
 },[]);
 console.log(NoRepArr);
+
+//filter(callback())方法创建一个新数组，callback()作用于原来数组的所有元素
+var testArr = [12, 5, 8, 130, 44];
+var filtered = testArr.filter((a) => a > 10);
+console.log(filtered);
+
+//例子：过滤掉剩下那些非0或者数字
+var arr2 = [
+  { id: 15 },
+  { id: -1 },
+  { id: 0 },
+  { id: 3 },
+  { id: 12.2 },
+  { },
+  { id: null },
+  { id: NaN },
+  { id: 'undefined' }
+];
+var NumArr = arr2.filter(function(obj) {
+	if(typeof obj.id === 'undefined' ||
+		obj.id === null ||
+		obj.id === ''||
+		isNaN(obj.id)||
+		obj.id === 0)
+		return false;
+	return true;
+});
+console.log(NumArr);
+//以上判断不是很好
+//思路：要找到数字的，通过typeof判断即可
+//但是有特殊的，NaN类型用typeof判断也是number，通过isNaN剔除
+var NumArr2 = arr2.filter(function(obj) {
+	if(typeof obj.id === 'number' &&
+		!isNaN(obj.id) && 
+		obj.id !== 0) return true;
+});
+console.log(NumArr2);
