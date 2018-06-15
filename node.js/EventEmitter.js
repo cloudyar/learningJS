@@ -72,3 +72,4 @@ Node.js会把它当做异常，退出程序并输出错误信息
 而是使用继承EventEmitter的子类
 比如：
 fs, net, http
+*/
