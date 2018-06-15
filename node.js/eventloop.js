@@ -15,7 +15,7 @@ Node.js有多个内置的事件，通过require('events')引入
 
 //引入events模块，指定events对象为变量events
 var events = require('events');
-//events有方法EventEmitter，实例化并把该对象赋值给变量eventEmitter
+//events有方法EventEmitter，实例化后的对象赋值给变量eventEmitter
 var eventEmitter = new events.EventEmitter();
 //eventEmitter对象可以绑定<事件>和<事件处理程序>(on)，并在适当时候触发事件(emit)
 //eventEmitter.on('eventName', eventHandler);
