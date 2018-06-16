@@ -103,15 +103,27 @@ node.js解析require方法传入的参数
 
 */
 
-var myArrayRef = new Array(0,1,2); //创建数组对象
-var mySeconArrayRef = myArrayRef; // 对象复制.
-myArrayRef[0] = 100; // 修改元素值
-console.log(mySeconArrayRef[0]);
+/*module.exports = {};
+//exports对module.exports的对象引用
+var exports = module.exports; 
+//对exports添加属性
+exports.name = 'test'
+console.log(module.exports); //{ name: 'test' }
+console.log(exports); //{ name: 'test' }
+//对export赋值，改变了指针指向
+exports = [1, 2, 3];
+console.log(module.exports); //{ name: 'test' }
+console.log(exports); //[ 1, 2, 3 ]
+//module.exports没变化
 
-var myVa = 'ABC'; //把ABC的值 赋予了myVa
-var myVb = myVa; // myVa 赋值给 myVb
-myVb = 'DEF'; //修改myVa
-/**
-* 输出的是:ABC. 因为是把值保存在了变量了 而不是保存的是引用地址,所以他们两个是相对独立的整体.
-*/
-console.log(myVa);
+//模块默认有```module```变量，包含```exports```属性
+//直接用```module.exports = 'xxx'```比较直接好理解
+
+console.log(module);
+function hello() {}
+function greet() {}
+module.exports = {
+	hello: hello,
+	greet: greet
+}
+console.log(module);*/
