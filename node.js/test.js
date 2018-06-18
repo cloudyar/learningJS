@@ -1,3 +1,5 @@
+//测试代码片段
+
 function Base(name, color) {
 	this.name = name;
 	this.sayHello = function() {
