@@ -1,2 +1,5 @@
 ## Folders ##
 node_modules
+
+## other ##
+package-lock.json
