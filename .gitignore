@@ -1,5 +1,2 @@
-## Folders ##
-node_modules
-
-## other ##
-package-lock.json
+# Dependency directories
+node_modules/
