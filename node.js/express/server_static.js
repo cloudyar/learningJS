@@ -1,5 +1,8 @@
 var express = require('express');
 var app = express();
+var birds = require('./birds');  //require birds mini-app
+
+app.use('/birds',birds); //learn express.Router
 
 app.use(express.static('public'));
 
