@@ -1,10 +1,14 @@
 var express = require('express');
 var app = express();
 var birds = require('./birds');  //require birds mini-app
-
+app.set('view engine', 'jade');
 app.use('/birds',birds); //learn express.Router
 
-app.use(express.static('public'));
+//app.use(express.static('public'));
+
+app.get('/', function(req,res) {
+	res.render('index', {title: 'Hey', message: 'Hello there!'});
+});
 
 app.use(function(req, res, next) {
 	res.status(404).send('Sorry can\'t find that!');
