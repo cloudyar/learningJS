@@ -82,3 +82,51 @@ App({
 })
 ```
 整个小程序只有一个App实例，是全部页面共享的。
+### 程序与页面
+根据pages.json配置文件生成一个界面，顶部的颜色和文字都可以在这个文件预先定义好。
+
+接着客户端会装载这个页面的WXML结构和WXSS样式
+
+最后客户单会装载pages.js，大体内容是这样的：
+```
+page({
+	data: { //参与页面渲染的数据
+		logs: []
+	},
+	onLoad: function() {
+		//页面渲染后执行
+	}
+})
+```
+在渲染完界面后，页面实例就会收到一个onLoad的回调，您可以在这个回调处理您的逻辑。
+### 组件
+```
+<map></map>
+```
+```
+<map longitude="广州经度" latitude="广州纬度"></map>
+```
+```
+<map bindmarkertap="markertap" longitude="广州经度" latitude="广州纬度"></map>
+```
+### API
+小程序提供了很多API供开发者使用
+
+比如获取用户的地理位置，可以：
+```
+wx.getLocation({
+	type: 'wgs84',
+	success: (res) => {
+		var latitude = res.latitude //经度
+		var longitude = res.longitude //纬度
+	}
+})
+```
+调用微信扫一扫能力，可以：
+```
+wx.scanCode({
+	success: (res) => {
+		console.log(res);
+	}
+})
+```
